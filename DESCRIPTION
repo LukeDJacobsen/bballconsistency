@@ -1,11 +1,14 @@
 Package: bballconsistency
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Scrapes player data from basketball-reference.com and computes/visualizes player consistency
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Luke Jacobsen
+Maintainer: Luke Jacobsen <lukedjacobsen@gmail.edu>
+Description: Scrapes player data from basketball-reference.com and computes/visualizes player consistency. Also provides functions for team consistency evaluation.
+License: CC0
 Encoding: UTF-8
 LazyData: true
+Imports: dplyr, janitor, magrittr, rlang, rvest, xml2, ballr
+Suggests: 
+    testthat
+RoxygenNote: 6.1.1
