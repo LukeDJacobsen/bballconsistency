@@ -31,5 +31,7 @@ player_stats <- function(player, season, metrics = 'basic'){
     stat_df <- stat_df[,colSums(is.na(stat_df))<nrow(stat_df)/2]
     #get rid of rows that repeat column titles
     stat_df <- stat_df %>% dplyr::filter(.data$Date != "Date") %>% dplyr::select(-.data$Rk)
+    stat_df <- suppressWarnings(apply(stat_df, 2, as.numeric))
+    stat_df$MP <- suppressWarnings(lubridate::ms(stat_df$MP))
     return(stat_df)
 }
