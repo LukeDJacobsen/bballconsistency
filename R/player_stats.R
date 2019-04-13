@@ -5,7 +5,7 @@
 #' @param season A numeric year
 #' @param metrics One of 'basic' or 'advanced'. 'basic' will return basic statistics and 'advanced' will return advanced statistics
 #'
-#'@return An data frame containing player season game by game statistics from basketball-reference.com.
+#'@return An dataframe containing player season game by game statistics from basketball-reference.com.
 #'
 #'@examples
 #'player_stats('c/curryst01', season = 2019, metrics = "advanced")
@@ -31,7 +31,9 @@ player_stats <- function(player, season, metrics = 'basic'){
     stat_df <- stat_df[,colSums(is.na(stat_df))<nrow(stat_df)/2]
     #get rid of rows that repeat column titles
     stat_df <- stat_df %>% dplyr::filter(.data$Date != "Date") %>% dplyr::select(-.data$Rk)
-    stat_df <- suppressWarnings(apply(stat_df, 2, as.numeric))
+    non_numeric_df <- stat_df[,1:9]
+    numeric_df <- suppressWarnings(apply(stat_df[,10:ncol(stat_df)], 2, as.numeric))
+    stat_df <- cbind(non_numeric_df, numeric_df)
     stat_df$MP <- suppressWarnings(lubridate::ms(stat_df$MP))
     return(stat_df)
 }
