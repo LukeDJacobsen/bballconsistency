@@ -1,7 +1,7 @@
 #'
 #' NBA Player per Game Stats for Season
 #'
-#' @param player url link for player. For example, 'j/jamesle01'. Link can be found for desired player at 'https://www.basketball-reference.com/players/'
+#' @param player url link for player. For example, 'j/jamesle01' for Lebron James. Link can be found for desired player at 'https://www.basketball-reference.com/players/'
 #' @param season A numeric year
 #' @param metrics One of 'basic' or 'advanced'. 'basic' will return basic statistics and 'advanced' will return advanced statistics
 #'
