@@ -51,16 +51,15 @@ player_consistency <- function(player, season, metrics = 'basic',
   }
   names(num_stat)[1:ncol(num_stat)] <- whichmetrics
   consistency_stats <- list()
-  consistency_stats[[1]] <- (1 - mean(is.na(num_stat$GS))) * 100
+  consistency_stats[[1]] <- c((1 - mean(is.na(num_stat$GS))) * 100, mean(num_stat$GS, na.rm = T) *100)
   consistency_stats[[2]] <- apply(num_stat, 2, mean, na.rm = T)
   consistency_stats[[3]] <- apply(num_stat, 2, sd, na.rm = T)
+  names(consistency_stats) <- c('Percent games played & percent games started', 'Average per game', 'Variance between game')
   consistency_stats
 }
 
 #still left to do to make function correct:
 #make work for advanced
-#figure out why averages are wrong in some stats
 #documentation
-#probably a better idea to make get_stats spit out correct format.
 
 

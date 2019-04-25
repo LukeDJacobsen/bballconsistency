@@ -14,7 +14,7 @@ player_stats(player, season, metrics = "basic")
 \item{metrics}{One of 'basic' or 'advanced'. 'basic' will return basic statistics and 'advanced' will return advanced statistics}
 }
 \value{
-An data frame containing player season game by game statistics from basketball-reference.com.
+An dataframe containing player season game by game statistics from basketball-reference.com.
 }
 \description{
 NBA Player per Game Stats for Season
