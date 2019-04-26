@@ -7,7 +7,7 @@
 player_stats(player, season, metrics = "basic")
 }
 \arguments{
-\item{player}{url link for player. For example, 'j/jamesle01'. Link can be found for desired player at 'https://www.basketball-reference.com/players/'}
+\item{player}{url link for player. For example, 'j/jamesle01' for Lebron James. Link can be found for desired player at 'https://www.basketball-reference.com/players/'}
 
 \item{season}{A numeric year}
 
@@ -17,7 +17,7 @@ player_stats(player, season, metrics = "basic")
 An dataframe containing player season game by game statistics from basketball-reference.com.
 }
 \description{
-NBA Player per Game Stats for Season
+Scrapes per game player statistics from basketball-reference.com
 }
 \examples{
 player_stats('c/curryst01', season = 2019, metrics = "advanced")

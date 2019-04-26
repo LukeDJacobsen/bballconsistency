@@ -10,7 +10,8 @@ player_consistency_plot <- function(player, season, metrics = 'basic',
                                          "BLK", "TOV", "PF", "PTS", "GmSc", "+/-"),
                  which_metrics_advanced = c('MP', "TS%", "eFG%", 'ORB%', 'DRB%','TRB%', 'AST%',
                                             "STL%", "BLK%", "TOV%", "USG%", "ORtg",
-                                            "DRtg", 'GmSc')){
+                                            "DRtg", 'GmSc'), plot_color = 'navy',
+                 xlab = 'Statistic', ylab = '', main = ''){
   #get player stats
   get_stats <- player_stats(player, season, metrics)
   #initiate data.frame
@@ -20,7 +21,7 @@ player_consistency_plot <- function(player, season, metrics = 'basic',
   pm_stat <- data.frame(Game = get_stats$G)
   #determine which metric and includes those included in which metrics
   if (metrics == 'advanced'){
-    if ('MP' %in% which_metrics_advanced){mid_stat$MP <- as.numeric(get_stats$MP)}
+    if ('MP' %in% which_metrics_advanced){mid_stat$MP <- as.numeric(get_stats$MP)/60}
     if ('TS%' %in% which_metrics_advanced){small_stat$'TS%' <- get_stats$'TS%'}
     if ('eFG%' %in% which_metrics_advanced){small_stat$'eFG%' <- get_stats$'eFG%'}
     if ('ORB%' %in% which_metrics_advanced){small_stat$'ORB%' <- get_stats$'ORB%'}
@@ -36,7 +37,7 @@ player_consistency_plot <- function(player, season, metrics = 'basic',
     if ('GmSc' %in% which_metrics_advanced){mid_stat$GmSc <- get_stats$GmSc}
   }
   if (metrics == 'basic'){
-    if ('MP' %in% which_metrics_basic){big_stat$MP <- as.numeric(get_stats$MP)}
+    if ('MP' %in% which_metrics_basic){big_stat$MP <- as.numeric(get_stats$MP)/60}
     if ('FG' %in% which_metrics_basic){mid_stat$FG <- get_stats$FG}
     if ('FGA' %in% which_metrics_basic){mid_stat$FGA <- get_stats$FGA}
     if ('FG%' %in% which_metrics_basic){small_stat$'FG%' <- get_stats$'FG%'}
@@ -61,33 +62,46 @@ player_consistency_plot <- function(player, season, metrics = 'basic',
   #get data into format that ggplot can accept
   #first with small data
   sdata <- matrix(small_stat[,2])
-  sstat <- matrix(rep(names(small_stat)[2]))
+  sstat <- matrix(rep(names(small_stat)[2], nrow(small_stat)))
   for (i in 3:ncol(small_stat)){
     sdata <- rbind(sdata, matrix(small_stat[,i]))
-    sstat <- rbind(sstat, matrix(rep(names(small_stat)[i])))
+    sstat <- rbind(sstat, matrix(rep(names(small_stat)[i], nrow(small_stat))))
   }
   ggsmall_stat <- data.frame('data' = sdata, 'stat' = sstat)
-  #now mid stat
+  #now mid data
   mdata <- matrix(mid_stat[,2])
-  mstat <- matrix(rep(names(mid_stat)[2]))
+  mstat <- matrix(rep(names(mid_stat)[2], nrow(mid_stat)))
   for (i in 3:ncol(mid_stat)){
     mdata <- rbind(mdata, matrix(mid_stat[,i]))
-    mstat <- rbind(mstat, matrix(rep(names(mid_stat)[i])))
+    mstat <- rbind(mstat, matrix(rep(names(mid_stat)[i], nrow(mid_stat))))
   }
   ggmid_stat <- data.frame('data' = mdata, 'stat' = mstat)
-  #now large stat
+  #now large data
   bdata <- matrix(big_stat[,2])
-  bstat <- matrix(rep(names(big_stat)[2]))
+  bstat <- matrix(rep(names(big_stat)[2], nrow(big_stat)))
   for (i in 3:ncol(big_stat)){
     bdata <- rbind(bdata, matrix(big_stat[,i]))
-    bstat <- rbind(bstat, matrix(rep(names(big_stat)[i])))
+    bstat <- rbind(bstat, matrix(rep(names(big_stat)[i], nrow(big_stat))))
   }
   ggbig_stat <- data.frame('data' = bdata, 'stat' = bstat)
-  dfvector <- as.vector(rbind(matrix(rep('small', nrow(ggsmall_stat))), matrix(rep('big', nrow(ggbig_stat))), matrix(rep('mid', nrow(ggmid_stat)))))
+  dfvector <- as.vector(rbind(matrix(rep('small', nrow(ggsmall_stat))),
+                              matrix(rep('big', nrow(ggbig_stat))),
+                              matrix(rep('mid', nrow(ggmid_stat)))))
   ggstat <- rbind(ggsmall_stat,ggbig_stat, ggmid_stat)
+  #now '+/-' data
+  if('+/-' %in% which_metrics_basic & metrics == 'basic'){
+    ggpm <- data.frame('data' = pm_stat[,2], 'stat' = rep('+/-',nrow(pm_stat)))
+    ggstat <- rbind(ggstat, ggpm)
+    dfvector <- as.vector(rbind(matrix(dfvector), matrix(rep('+/-', nrow(pm_stat)))))
+  }
   ggstat$df <- dfvector
   ggstat
+  #plot
+  ggplot(ggstat) + geom_violin(aes(stat, data), fill = plot_color, alpha = .5) +
+    facet_wrap(~df, scales = 'free') + xlab(xlab) + ylab(ylab) + ggtitle(main) +
+    theme(strip.background = element_blank(), strip.text = element_blank())
 }
 
-#dont forget to incorporat plus minus
+#dont forget to incorporate plus minus
 #IN PROGRESS
+

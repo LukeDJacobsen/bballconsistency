@@ -1,5 +1,7 @@
 #'
-#'NBA Player consistency estimates for a player during a season.
+#' NBA Player consistency estimates for a player during a season.
+#'
+#'@description Calculated consistency metrics for NBA player for a season
 #'
 #'@param player url link for player. For example, 't/townska01' for Karl Anthony Towns. Link can be found for desired player at 'https://www.basketball-reference.com/players/'
 #'@param season A numeric year
@@ -11,7 +13,7 @@
 #'@return A list with three element. The first element is a vector with the percent of games played and percent of games started out of total games played.
 #'Second element is vector with average statistic per game. The third element is the variance of each statistic between games. Note if 'GS' is not included in which_metrics argument, the first element of list will not be computed.
 #'
-#' @example
+#'@example
 #'player_consistency('t/townska01', season = 2016, metrics = 'basic')
 #'
 #'player_consistency('t/townska01', season = 2016,
