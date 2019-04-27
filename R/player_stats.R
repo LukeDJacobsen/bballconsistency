@@ -12,6 +12,12 @@
 #'@examples
 #'player_stats('c/curryst01', season = 2019, metrics = "advanced")
 #'#returns Steph Curry's 2019 advanced statistics
+#'
+#'@importFrom stats sd
+#'@importFrom utils data
+#'@importFrom rlang .data
+#'
+#'@export
 
 player_stats <- function(player, season, metrics = 'basic'){
     if (metrics == 'basic') {

@@ -1,15 +1,15 @@
-library(WNBAballr)
+library(bballconsistency)
 
 test_that('player_stats works', {
   expect_equal(player_stats('c/curryst01', season = 2018)[15,15], .222)
 })
 
 test_that('player_consistency defaults work',{
-  expect_equal(player_consistency('t/townska01', season = 2018)[[2]][2], 1)
+  expect_equal(length(player_consistency('t/townska01', season = 2018)[[2]]), 22)
 })
 
 test_that('player_consistency advanced work',{
-  expect_equal(player_consistency('a/antetgi01', season = 2017, metrics = 'advanced')[[3]][2], 0)
+  expect_equal(length(player_consistency('a/antetgi01', season = 2017, metrics = 'advanced')[[3]]), 15)
 })
 
 test_that('player_consistency works with subset of variables',{

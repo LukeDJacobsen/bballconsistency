@@ -22,4 +22,5 @@ Scrapes per game player statistics from basketball-reference.com
 \examples{
 player_stats('c/curryst01', season = 2019, metrics = "advanced")
 #returns Steph Curry's 2019 advanced statistics
+
 }
