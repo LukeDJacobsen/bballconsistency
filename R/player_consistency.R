@@ -1,17 +1,18 @@
 #'
-#' NBA Player consistency estimates for a player during a season.
+#'NBA Player consistency estimates for a player during a season.
 #'
 #'@description Calculated consistency metrics for NBA player for a season
 #'
-#'@param player url link for player. For example, 't/townska01' for Karl Anthony Towns. Link can be found for desired player at 'https://www.basketball-reference.com/players/'
-#'@param season A numeric year
-#'@param metrics One of 'basic' or 'advanced'.
-#'@param which_metrics_basic Any subset of ('MP', 'GS', 'FG', 'FGA', 'FG%', "3P","3PA", "3P%", "FT", "FTA", "FT%","ORB", "DRB", "TRB", "AST", "STL","BLK", "TOV", "PF", "PTS", "GmSc", "+/-").
-#'Chosen statistics will be computed if metrics = 'basic'.
-#'@param which_metrics_advanced Any subset of ('MP',"GS","TS%", "eFG%", 'ORB%', 'DRB%','TRB%', 'AST%',"STL%", "BLK%", "TOV%", "USG%", "ORtg","DRtg", 'GmSc'). Chosen statistics will be computed if metrics = 'advanced'
+#' @param player url link for player. For example, 't/townska01' for Karl Anthony Towns. Link can be found for desired player at 'https://www.basketball-reference.com/players/'
+#' @param season A numeric year
+#' @param metrics One of 'basic' or 'advanced'.
+#' @param which_metrics_basic Any subset of ('MP', 'GS', 'FG', 'FGA', 'FG%', "3P","3PA", "3P%", "FT", "FTA", "FT%","ORB", "DRB", "TRB", "AST", "STL","BLK", "TOV", "PF", "PTS", "GmSc", "+/-"). Chosen statistics will be computed if metrics = 'basic'.
+#' @param which_metrics_advanced Any subset of ('MP',"GS","TS%", "eFG%", 'ORB%', 'DRB%','TRB%', 'AST%',"STL%", "BLK%", "TOV%", "USG%", "ORtg","DRtg", 'GmSc'). Chosen statistics will be computed if metrics = 'advanced'
 #'
 #'@return A list with three element. The first element is a vector with the percent of games played and percent of games started out of total games played.
 #'Second element is vector with average statistic per game. The third element is the variance of each statistic between games. Note if 'GS' is not included in which_metrics argument, the first element of list will not be computed.
+#'
+#'
 #'
 #'@example
 #'player_consistency('t/townska01', season = 2016, metrics = 'basic')
@@ -83,8 +84,9 @@ player_consistency <- function(player, season, metrics = 'basic',
     }
   }
   if (!(metrics == 'basic' & 'MP' %in% which_metrics_basic) & !(metrics == 'advanced' & 'MP' %in% which_metrics_advanced)){
-    for (i in 2:ncol(clean_stat)){
-      num_stat[,i - 1] <- as.numeric(clean_stat[,i])
+    num_stat <- as.data.frame(as.numeric(clean_stat[,2]))
+    for (i in 3:ncol(clean_stat)){
+      num_stat[,i-1] <- as.numeric(clean_stat[,i])
     }
   }
   #give column titles

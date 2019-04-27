@@ -8,7 +8,7 @@ Description: Scrapes player data from basketball-reference.com and computes/visu
 License: CC0
 Encoding: UTF-8
 LazyData: true
-Imports: dplyr, janitor, magrittr, rlang, rvest, xml2, ballr, lubridate
+Imports: dplyr, janitor, magrittr, rlang, rvest, xml2, ballr, lubridate, ggplot2
 Suggests: 
     testthat
 RoxygenNote: 6.1.1

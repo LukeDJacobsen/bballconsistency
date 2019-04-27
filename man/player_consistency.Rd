@@ -18,8 +18,7 @@ player_consistency(player, season, metrics = "basic",
 
 \item{metrics}{One of 'basic' or 'advanced'.}
 
-\item{which_metrics_basic}{Any subset of ('MP', 'GS', 'FG', 'FGA', 'FG%', "3P","3PA", "3P%", "FT", "FTA", "FT%","ORB", "DRB", "TRB", "AST", "STL","BLK", "TOV", "PF", "PTS", "GmSc", "+/-").
-Chosen statistics will be computed if metrics = 'basic'.}
+\item{which_metrics_basic}{Any subset of ('MP', 'GS', 'FG', 'FGA', 'FG%', "3P","3PA", "3P%", "FT", "FTA", "FT%","ORB", "DRB", "TRB", "AST", "STL","BLK", "TOV", "PF", "PTS", "GmSc", "+/-"). Chosen statistics will be computed if metrics = 'basic'.}
 
 \item{which_metrics_advanced}{Any subset of ('MP',"GS","TS%", "eFG%", 'ORB%', 'DRB%','TRB%', 'AST%',"STL%", "BLK%", "TOV%", "USG%", "ORtg","DRtg", 'GmSc'). Chosen statistics will be computed if metrics = 'advanced'}
 }

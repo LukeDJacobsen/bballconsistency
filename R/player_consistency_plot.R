@@ -1,6 +1,28 @@
 #'
+#'NBA Player consistency plots for a player during a season.
+#'
+#'@description Plots consistency metrics for NBA player for a season. See palyer_consistency() for details on statistics.
+#'
+#' @param player url link for player. For example, 't/townska01' for Karl Anthony Towns. Link can be found for desired player at 'https://www.basketball-reference.com/players/'
+#' @param season A numeric year
+#' @param metrics One of 'basic' or 'advanced'.
+#' @param which_metrics_basic Any subset of ('MP', 'GS', 'FG', 'FGA', 'FG%', "3P","3PA", "3P%", "FT", "FTA", "FT%","ORB", "DRB", "TRB", "AST", "STL","BLK", "TOV", "PF", "PTS", "GmSc", "+/-"). Chosen statistics will be computed if metrics = 'basic'.
+#' @param which_metrics_advanced Any subset of ('MP',"GS","TS%", "eFG%", 'ORB%', 'DRB%','TRB%', 'AST%',"STL%", "BLK%", "TOV%", "USG%", "ORtg","DRtg", 'GmSc'). Chosen statistics will be computed if metrics = 'advanced'
+#' @param plot_color Color that works for ggplot object
+#' @param xlab x-axis label
+#' @param ylab y-axis lable
+#' @param main title for plots
+#' @param geom One of 'violin' or 'boxplot'.
+#'
+#'@return Four plots visualizing NBA players statistics.
 #'
 #'
+#'
+#'@example
+#'player_consistency_plot('t/townska01', season = 2016, metrics = 'basic')
+#'
+#'player_consistency_plot('t/townska01', season = 2016,
+#'    metrics = 'basic', which_metrics_basic = c('FG', '3P'))
 #'
 
 player_consistency_plot <- function(player, season, metrics = 'basic',
@@ -11,7 +33,7 @@ player_consistency_plot <- function(player, season, metrics = 'basic',
                  which_metrics_advanced = c('MP', "TS%", "eFG%", 'ORB%', 'DRB%','TRB%', 'AST%',
                                             "STL%", "BLK%", "TOV%", "USG%", "ORtg",
                                             "DRtg", 'GmSc'), plot_color = 'navy',
-                 xlab = 'Statistic', ylab = '', main = ''){
+                 xlab = 'Statistic', ylab = '', main = '', geom = 'violin'){
   #get player stats
   get_stats <- player_stats(player, season, metrics)
   #initiate data.frame
@@ -97,11 +119,16 @@ player_consistency_plot <- function(player, season, metrics = 'basic',
   ggstat$df <- dfvector
   ggstat
   #plot
-  ggplot(ggstat) + geom_violin(aes(stat, data), fill = plot_color, alpha = .5) +
-    facet_wrap(~df, scales = 'free') + xlab(xlab) + ylab(ylab) + ggtitle(main) +
-    theme(strip.background = element_blank(), strip.text = element_blank())
+  if (geom == 'violin'){
+    ggplot2::ggplot(ggstat) + ggplot2::geom_violin(ggplot2::aes(stat, data),fill = plot_color, alpha = .5) +
+      ggplot2::facet_wrap(~df, scales = 'free') + ggplot2::xlab(xlab) + ggplot2::ylab(ylab) + ggplot2::ggtitle(main) +
+      ggplot2::theme(strip.background = ggplot2::element_blank(), strip.text = ggplot2::element_blank())
+  }
+  if (geom == 'boxplot'){
+    ggplot2::ggplot(ggstat) + ggplot2::geom_boxplot(ggplot2::aes(stat, data), fill = plot_color, alpha = .5) +
+      ggplot2::facet_wrap(~df, scales = 'free') + ggplot2::xlab(xlab) + ggplot2::ylab(ylab) + ggplot2::ggtitle(main) +
+      ggplot2::theme(strip.background = ggplot2::element_blank(), strip.text = ggplot2::element_blank())
+  }
 }
 
-#dont forget to incorporate plus minus
-#IN PROGRESS
 
