@@ -25,6 +25,7 @@
 #'
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
+#' @importFrom ggplot2 ggplot
 #'
 #' @export
 
@@ -120,18 +121,18 @@ player_consistency_plot <- function(player, season, metrics = 'basic',
     dfvector <- as.vector(rbind(matrix(dfvector), matrix(rep('+/-', nrow(pm_stat)))))
   }
   ggstat$df <- dfvector
-  ggstat
   #plot
   if (geom == 'violin'){
-    ggplot2::ggplot(ggstat) + ggplot2::geom_violin(ggplot2::aes(.data$stat, .data$data),fill = plot_color, alpha = .5) +
+    plot <- ggplot2::ggplot(ggstat) + ggplot2::geom_violin(ggplot2::aes(.data$stat, .data$data),fill = plot_color, alpha = .5) +
       ggplot2::facet_wrap(~df, scales = 'free') + ggplot2::xlab(xlab) + ggplot2::ylab(ylab) + ggplot2::ggtitle(main) +
       ggplot2::theme(strip.background = ggplot2::element_blank(), strip.text = ggplot2::element_blank())
   }
   if (geom == 'boxplot'){
-    ggplot2::ggplot(ggstat) + ggplot2::geom_boxplot(ggplot2::aes(.data$stat, .data$data), fill = plot_color, alpha = .5) +
+    plot <- ggplot2::ggplot(ggstat) + ggplot2::geom_boxplot(ggplot2::aes(.data$stat, .data$data), fill = plot_color, alpha = .5) +
       ggplot2::facet_wrap(~df, scales = 'free') + ggplot2::xlab(xlab) + ggplot2::ylab(ylab) + ggplot2::ggtitle(main) +
       ggplot2::theme(strip.background = ggplot2::element_blank(), strip.text = ggplot2::element_blank())
   }
+  plot
 }
 
 

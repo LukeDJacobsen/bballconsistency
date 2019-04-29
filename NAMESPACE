@@ -3,6 +3,7 @@
 export(player_consistency)
 export(player_consistency_plot)
 export(player_stats)
+importFrom(ggplot2,ggplot)
 importFrom(magrittr,"%>%")
 importFrom(rlang,.data)
 importFrom(stats,sd)
