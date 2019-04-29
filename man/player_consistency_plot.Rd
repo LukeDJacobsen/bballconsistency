@@ -41,3 +41,7 @@ Four plots visualizing NBA players statistics.
 \description{
 Plots consistency metrics for NBA player for a season. See palyer_consistency() for details on statistics.
 }
+\examples{
+player_consistency_plot('t/townska01', season = 2016, metrics = 'basic')
+
+}

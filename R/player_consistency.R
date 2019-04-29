@@ -16,7 +16,7 @@
 #'
 #'
 #'
-#'@example
+#'@examples
 #'player_consistency('t/townska01', season = 2016, metrics = 'basic')
 #'
 #'@importFrom magrittr %>%

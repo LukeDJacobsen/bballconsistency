@@ -31,3 +31,7 @@ Second element is vector with average statistic per game. The third element is t
 \description{
 Calculated consistency metrics for NBA player for a season
 }
+\examples{
+player_consistency('t/townska01', season = 2016, metrics = 'basic')
+
+}
