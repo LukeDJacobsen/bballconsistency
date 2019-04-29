@@ -48,8 +48,8 @@ player_consistency_plot <- function(player, season, metrics = 'basic',
   #determine which metric and includes those included in which metrics
   if (metrics == 'advanced'){
     if ('MP' %in% which_metrics_advanced){mid_stat$MP <- as.numeric(get_stats$MP)/60}
-    if ('TS%' %in% which_metrics_advanced){small_stat$'TS%' <- get_stats$'TS%'}
-    if ('eFG%' %in% which_metrics_advanced){small_stat$'eFG%' <- get_stats$'eFG%'}
+    if ('TS%' %in% which_metrics_advanced){small_stat$'TS%' <- 100*get_stats$'TS%'}
+    if ('eFG%' %in% which_metrics_advanced){small_stat$'eFG%' <- 100*get_stats$'eFG%'}
     if ('ORB%' %in% which_metrics_advanced){small_stat$'ORB%' <- get_stats$'ORB%'}
     if ('DRB%' %in% which_metrics_advanced){small_stat$'DRB%' <- get_stats$'DRB%'}
     if ('TRB%' %in% which_metrics_advanced){small_stat$'TRB%' <- get_stats$'TRB%'}
@@ -134,5 +134,3 @@ player_consistency_plot <- function(player, season, metrics = 'basic',
   }
   plot
 }
-
-
